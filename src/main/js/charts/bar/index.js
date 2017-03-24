@@ -3,22 +3,20 @@ import zingchart from 'zingchart';
 
 export class BarChart extends Component {
     componentDidMount() {
-        console.log('Calling createChart');
         var chartData = {
-            "type": "bar",
-            "series": [
-                { "values": [35, 42, 67, 89]},
-                { "values": [28, 40, 39, 36]}
-            ]
+            "type": this.props.type,
+            "series": this.props.series,
+            "title": this.props.title,
+            "plot": this.props.plot,
+            "legend": `${this.props.legend}`,
+            "theme": this.props.theme
         };
-        console.log(chartData);
         zingchart.render({
             id: 'barDiv',
             data: chartData,
-            height: 400,
-            width: 600
+            height: this.props.height,
+            width: this.props.width
         });
-        console.log('HERE 2');
     }
 
     render() {
@@ -27,3 +25,14 @@ export class BarChart extends Component {
         )
     }
 }
+
+BarChart.propTypes = {
+    type: React.PropTypes.oneOf(["bar", "vbar", "bar3d", "vbar3d", "hbar", "hbar3d"]),
+    title: React.PropTypes.string,
+    plot: React.PropTypes.object,
+    series: React.PropTypes.array,
+    height: React.PropTypes.number,
+    width: React.PropTypes.number,
+    legend: React.PropTypes.bool,
+    theme: React.PropTypes.string
+};
